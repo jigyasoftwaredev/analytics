@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+               <div class="row">
+                 <div class="col-12">
+                   <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-dark">Dashboard</h4>
+               
+          <div class="row col-lg-12">
+                 
+           <div class="col-lg-6">
+          
+            <div class="col-12 row">
+            <div class="col-lg-12">
+            <h5 style="text-align: center">Time From Order to Invoice<br/>(Days)</h5>
+            <div id="my_dataviz1"></div>
+            <div class="col-lg-12">
+            <p>$2.33/End Point</p>
+            </div>            
+            </div>
+            
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+           </div>
+           <div class="col-lg-6">
+           
+            <div class="col-12 row">
+            <h5 style="text-align: center">Total End Points</h5>            
+            <div id="my_dataviz3"></div>
+            </div>
+            <div class="col-12 row">
+            <h5 style="text-align: center">Products</h5></div>
+            <div class="col-12 row">
+            <div class="col-lg-6">
+            <div id="my_dataviz2"></div>
+            </div>
+            <div class="col-6">
+            <div id="my_dataviz"></div>
+            </div>
+           </div>
+         </div>
+
+
+                </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+   
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block script %}
+<script>
+
+// Dummy Data for the chart
+
+var data = [
+    {name:'Q3 16',count:200,description:"Quarter3 16"},
+    {name:'Q4 16',count:140,description:"Quarter4 16"},
+    {name:'Q1 17',count:180,description:"Quarter1 17"},
+    {name:'Q2 17',count:220,description:"Quarter2 17"},
+    {name:'Q3 17',count:220,description:"Quarter3 17"},
+    {name:'Q4 17',count:240,description:"Quarter4 17"},
+    {name:'Q1 18',count:160,description:"Quarter1 18"},
+    {name:'Q2 18',count:150,description:"Quarter2 18"},
+    {name:'Q3 18',count:160,description:"Quarter3 18"},
+    {name:'Q4 18',count:180,description:"Quarter4 18"},
+    {name:'Q1 19',count:150,description:"Quarter1 19"},
+    {name:'Q2 19',count:140,description:"Quarter2 19"},
+    {name:'Q3 19',count:170,description:"Quarter3 19"},
+];
+
+// Draw a basic bar chart
+
+var margin = {top:20, left:30, bottom:50, right:20};
+var height = 300 - margin.top - margin.bottom,
+    width = 450 - margin.left - margin.right;
+
+var svg = d3.select("#my_dataviz1")
+        .append("svg")
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + margin.left + margin.right)
+        .style("cursor","default")
+        .append("g")
+        .style("font","8px times")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+        
+
+var x = d3.scaleBand() 
+    .domain(data.map(function(d) { return d.name;}))
+    .range([0,width])
+    .padding(.7);
+
+var y = d3.scaleLinear()
+    .domain([0,300])
+    .range([height,0]);
+
+var color = d3.scaleOrdinal(d3.schemeCategory10)
+    .domain(x.domain())
+
+
+var tooltip = d3.tooltip() // returns the tooltip function
+    .extent([[0,0],[width,height]]) // tells the tooltip how much area it has to work with
+    .tips(["name","description"],["Bar Name: ","Description: "]) // tells the tooltip which properties to display in the tip and what to label thme
+    .fontSize(11) // sets the font size for the tooltip
+    .padding([6,3]) // sets the amount of padding in the tooltip rectangle
+    .margin([7,7]); // set the distance H and V to keep the tooltip from the mouse pointer
+
+svg.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function(d) { return x(d.name)})
+    .attr("y", function(d) { return y(d.count)})
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.count)})
+    .attr("fill", function(d) { return '#133895'})
+    .each(tooltip.events); // attaches the tooltips mouseenter/leave/move events but does not overwrite previously attached events
+
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+
+svg.append("g")
+    .call(d3.axisLeft(y));
+
+svg.call(tooltip) // draws the tooltip;
+
+</script>
+<script>
+
+// Dummy Data for the chart
+
+var data = [
+    {name:'WATER',count:'{{w_end}}',description:"{{w_end}}"},
+    {name:'GAS',count:'{{g_end}}',description:"{{g_end}}"},
+    {name:'ELECTRIC',count:'{{e_end}}',description:"{{e_end}}"},
+];
+
+// Draw a basic bar chart
+
+var margin = {top:20, left:70, bottom:50, right:20};
+var height = 300 - margin.top - margin.bottom,
+    width = 560 - margin.left - margin.right;
+
+var svg = d3.select("#my_dataviz3")
+        .append("svg")
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + margin.left + margin.right)
+        .style("cursor","default")
+        .append("g")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+var x = d3.scaleBand() 
+    .domain(data.map(function(d) { return d.name;}))
+    .range([0,width])
+    .padding(.1);
+
+var y = d3.scaleLinear()
+    .domain([0,'{{w_end}}'])
+    .range([height,0]);
+
+var color = d3.scaleOrdinal(d3.schemeCategory10)
+    .domain(x.domain())
+
+
+var tooltip = d3.tooltip() // returns the tooltip function
+    .extent([[0,0],[width,height]]) // tells the tooltip how much area it has to work with
+    .tips(["name","description"],["Bar Name: ","Description: "]) // tells the tooltip which properties to display in the tip and what to label thme
+    .fontSize(11) // sets the font size for the tooltip
+    .padding([6,3]) // sets the amount of padding in the tooltip rectangle
+    .margin([7,7]); // set the distance H and V to keep the tooltip from the mouse pointer
+
+svg.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function(d) { return x(d.name)})
+    .attr("y", function(d) { return y(d.count)})
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.count)})
+    .attr("fill", function(d) { return '#008C95'})
+    .each(tooltip.events); // attaches the tooltips mouseenter/leave/move events but does not overwrite previously attached events
+
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+
+svg.append("g")
+    .call(d3.axisLeft(y));
+
+svg.call(tooltip) // draws the tooltip;
+
+</script>
+<script>
+var pie = new d3pie("my_dataviz", {
+ "size": {
+      "canvasHeight": 180,
+      "canvasWidth": 300
+    },
+"data": {
+    "content": [
+      {"label":"SA","value":80, color: "#008C95"},
+      {"label":"Portal", "value":20, color: "#E57200"}
+      ]
+  }
+ });
+ 
+var pie1 = new d3pie("my_dataviz2", {
+ "size": {
+      "canvasHeight": 190,
+      "canvasWidth": 300
+    },
+"data": {
+    "content": [
+      {"label":"SA Enhanced","value":parseFloat('{{sa_enhanced_orders}}'), color: "#0072CE"},
+      {"label":"SA Essential", "value":parseFloat('{{sa_essential_orders}}'), color: "#00B050"},
+      {"label":"Others", "value":parseFloat('{{other_sa}}'), color: "#e57200"}
+      ]
+}
+  
+ });
+ 
+ 
+ 
+  //  Bar chart
+
+var margin  = {top: 20, right: 20, bottom: 100, left: 60},
+        width   = 600 - margin.left - margin.right,
+        height  = 400 - margin.top - margin.bottom,
+        x       = d3.scale.ordinal().rangeRoundBands([0,width], 0.5),
+        y       = d3.scale.linear().range([height,0]);
+
+//draw axis
+    var xAxis   = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+  var yAxis   = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(10);
+
+ var svg     = d3.select("#my_dataviz3")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("contentWordCount.json", function (data)
+    {
+        x.domain(data.map(function (d)
+        {
+            return d.name;
+        }));
+
+        y.domain([0, d3.max(data, function (d)
+        {
+            return d.wc;
+        })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0, " + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "middle")
+            .attr("dx", "-0.5em")
+            .attr("dy", "-.55em")
+            .attr("y", 30)
+            .attr("transform", "rotate(0)" );
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 5)
+            .attr("dy", "0.8em")
+            .attr("text-anchor", "end")
+            .text("Word Count");
+
+        svg.selectAll("bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .style("fill", "orange")
+            .attr("x", function(d)
+            {
+                return x(d.name);
+            })
+            .attr("width", x.rangeBand())
+            .attr("y", function (d)
+            {
+                return y(d.wc);
+            })
+            .attr("height", function (d)
+            {
+                return height - y(d.wc);
+            });
+    
+})
+
+            
+            
+            
+ 
+// set the dimensions and margins of the graph
+var margin = {top: 5, right: 5, bottom: 5, left: 5},
+    width = 260 - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg4 = d3.select("#my_dataviz3")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Parse the Data
+d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
+
+  // sort data
+  data.sort(function(b, a) {
+    return a.Value - b.Value;
+  });
+
+  // X axis
+  var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(data.map(function(d) { return d.Country; }))
+    .padding(0.2);
+  svg4.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 13000])
+    .range([ height, 0]);
+  svg4.append("g")
+    .call(d3.axisLeft(y));
+
+  // Bars
+  svg4.selectAll("mybar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("x", function(d) { return x(d.Country); })
+      .attr("y", function(d) { return y(d.Value); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.Value); })
+      .attr("fill", "#69b3a2")
+
+});
+            
+            
+            
+ 
+ 
+ 
+ 
+ 
+</script>
+{% endblock %}

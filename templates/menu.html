@@ -1,0 +1,42 @@
+{% load static %}
+<div class="horizontal-menu">
+      <nav class="navbar top-navbar col-lg-12 col-12 p-0">
+        <div class="container">
+          <div class="text-left navbar-brand-wrapper d-flex align-items-center justify-content-between">
+            <a class="navbar-brand brand-logo" href="/"><img src="{% static "images/sensus_xylem_logo.svg" %}" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="/"><img src="{% static "images/sensus_xylem_logo.svg" %}" alt="logo"/></a> 
+          </div>
+          <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <ul class="nav page-navigation">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="mdi mdi-view-dashboard menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+                 <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-cards menu-icon"></i>
+                <span class="menu-title">Reports</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="my-account.html">
+                <i class="mdi mdi-account menu-icon"></i>
+                <span class="menu-title">My Account</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" title="Logout" style="color:#71d54c">
+                <i class="mdi mdi-logout menu-icon"></i>
+                <span class="menu-title">Logout</span></a>
+            </li>
+          </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      
+    </div>

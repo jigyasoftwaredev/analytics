@@ -1,0 +1,128 @@
+Customer_ID,Customer_Name,Portal_Users_Count,WATER,GAS,ELECTRIC,ALERTS,BILL,DASHBOARD-MENU,GOAL,GOALS,GOALS-MENU,GOOGLEMAP,MACTIVITY,METERS,METERS-MENU,NOTIFICATIONS,OUTAGES,OUTAGES-MENU,OUTDOORS,PEERS,RECIPIENTS,RECIPIENTS-MENU,TERMS,THRESHOLD,THRESHOLDS,THRESHOLDS-MENU,UNITS,UNITS-MENU,USAGE,USAGEDETAIL,USAGE_FORECAST-MENU,USER,USER-MENU,USGDISCLAIMER,OTHER_GROUPS
+maws,"Mobile, AL",4834,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+cedar,City of Cedar Park,3284,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+wfall,"Wichita Falls, TX",2601,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+leaguecity,"League City, TX",1910,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+stjo,"St Johns Co, FL",1889,Y,N,N,Y,N,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+cppll,"Coppell, TX",1813,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lbcwd,"Laguna Beach, CA",1635,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+rwltt,"Rowlett, TX",1590,Y,N,N,Y,Y,Y,Y,Y,Y,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+leag,"League City, TX",1425,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+euless,"Euless City, TX",1243,Y,N,N,Y,N,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hnws,"Holley Navarre, FL",1132,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pwsa,"Pittsburgh Water & Sewer Authority, PA",1002,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+gnvl,"Gainesville, GA",958,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hotsp,"Hot Springs, AR",773,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+fmnt,"Fairmont, WV",769,Y,N,N,Y,N,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+gbry,"Granbury, TX",600,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+sbca,"San Bruno, CA",577,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+nce,"Nobles, MN",564,N,N,Y,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lkzur,"Lake Zurich, IL",492,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lwwa,Lakewood Water District - WA,464,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hhpsd,"Hilton Head, SC",425,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+seal,"Seal Rock, OR",420,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tinly,"Tinley Park, IL",414,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,N
+ocoee,"Ocoee, FL",359,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+midny,"Middletown, NY",339,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tsdca,"Trinufo, CA",318,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+fvca,"Fountain Valley, CA",311,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+sfid,Santa Fe Irrigation District,267,Y,N,N,Y,Y,Y,Y,Y,Y,N,Y,Y,Y,Y,N,N,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pkrtx,"Parker, TX",239,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+erwsd,Eagle River Water & Sanitation District,216,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lvrmr,"Livermore, CA",211,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+rndll,"Randall, SD",208,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tral,"Troy, AL",190,Y,N,Y,Y,N,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+peru,"Peru, IN",188,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+mpwd,"Mid Peninsula Water District, CA",178,Y,N,N,Y,N,Y,Y,Y,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lexva,"Lexington, VA",138,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+stant,"St Anthony, MN",134,Y,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+katy,"Katy, TX",110,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+ghid,"Granger Hunter, UT",104,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+dphne,"Daphne, AL",100,Y,Y,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+aubny,"Auburn, NY",93,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+jaxtx,"Jacksonville, TX",86,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+algqn,"Algonquin, IL",71,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,N
+lcwtr,"Hampton, SC",70,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+vcws,"Ventura County, CA",49,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+agua,"Agua Special Utility District, TX",46,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hnsvl,"Hinesville, Ga",45,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+brnhm,"Brenham, TX",41,Y,Y,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+npmud,"Newport, TX",36,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+mtlnd,Mountain Supply,28,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+gcks,"Garden City, KS",25,Y,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+naco,"Nacogdoches, TX",19,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+slc,"Salt Lake City, UT",19,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+balch,"Balch Springs, TX",17,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+madre,"Sierra Madre, CA",17,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+vegas,"North Vegas, NV",16,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+cran,"Cranberry Township, PA",14,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+apo,"Apopka, FL",11,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+vict,"Victoria, TX",10,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+demo,DEMO SA SITE,9,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+brndn,"Brandon, MS",8,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+broc,"Brockton, MA",8,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,N
+galtn,"Gallatin, TN",8,Y,Y,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hdmo,HDMO Pilot,8,Y,Y,Y,Y,Y,Y,Y,Y,Y,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+yarm,"Yarmouth, MA",8,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+amcan,"American Canyon, CA",7,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+martw,"Martin City, Slovakia",7,Y,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+matwn,"Mattawan, MI",7,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pacwa,"Pacific, WA",7,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+rmndv,"Raymondville, TX",7,Y,N,N,Y,N,Y,Y,Y,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+berow,"Beroun, Horovice",6,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+ceres,"Ceres, CA",6,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lnoke,"Lonoke, AR",6,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+nipas,"Nipas, Chile",6,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+blld,Belize Electric,5,N,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+nwnan,"Newnan, GA",5,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+depl,"Des Plaines, IL",4,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+klmth,"Klamath Falls, OR",4,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lub,"Loudon, TN",4,Y,Y,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,N
+mnca,"Monaca, PA",4,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+palmb,"Palm Beach CO, FL",4,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+azersu,Suez Azerbaijan,3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+bystw,"Banska Bystrica, Slovakia",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+ccol,"Collinsville, OK",3,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+cws,"West Sacramento, CA",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+drbks,"Derby, KS",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+myrtl,"Myrtle Beach, SC",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+ptrch,"Port Richey, FL",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pwdt,Philadelphia Water,3,Y,Y,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+sandbox,Testing Sandbox,3,N,N,Y,Y,Y,Y,Y,N,N,N,Y,Y,Y,Y,N,N,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+spud,"Snoqualmie Pass, WA",3,Y,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tusk,"Tuskegee, AL",3,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+webtx,"Webster, TX ",3,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+wtnga,"Watonga, OK",3,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+arlma,"Arlington, MA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+batav,"Batavia, NY",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+blmgt,"Bloomington, IN",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+chino,"Chino, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+cilmo,"Lebanon, MO",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+dewg,"DE Watergroep, Belgium",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+edgfl,"Edgewater, FL",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+entropia,"Entropia, Europe",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+fost,"Foster, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+fredb,"Fredericksburg, TX",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+gldra,"Glendora, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hmbl,"Humble, TX",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+hpwtx,"City of Houston Public Works, TX",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lesue,"Le Sueur, MN",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lnsng,"Lansing, IL",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+lpwme,"Lewiston, ME",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+ltmua,"Lower Township, NJ",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+mlwd,"Great Neck, NY",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+mudc,"East Bay, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pcofl,"Palm Coast, FL",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+perok,"Perry, OK",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+pwd,"Philadelphia, PA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+sjose,"San Jose, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,N,N,Y,Y,Y,Y,Y,Y,N
+sshi,"Seaside Heights, NJ",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+stalb,"St. Albans, VT",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tarb,"Tarboro, NC",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+tmptx,"Temple, TX",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+trcy,"Tracy, CA",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+troy,"Troy, OH",2,Y,N,N,Y,Y,Y,Y,N,N,N,Y,Y,Y,Y,N,N,Y,N,Y,Y,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+wcmes,"Weakley County, TN",2,N,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+wcua,"Wynnewood, OK",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+wfrd,"Weatherford, TX",2,Y,N,Y,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N
+wymi,"Wyoming, MI",2,Y,N,N,Y,Y,Y,N,N,N,N,N,Y,Y,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,N

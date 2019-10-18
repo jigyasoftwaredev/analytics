@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style type="text/css">
+  .grid-item{
+    background: none;
+    margin-left: 6px;
+    margin-right:1px;
+    font-size:14px;
+  }
+</style>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="d-lg-flex align-items-baseline">
+                <h5 class="text-dark mb-0">
+                  Overview
+                </h5>
+                <p class="ml-md-3 font-weight-light mb-0 mt-1"></p>
+              </div>
+            </div>
+          </div>
+                           <div class="row pt-4">
+						   <div class="col-12">
+							<div class="card">
+								<div class="card-body">
+								<div class="grid-container">
+									<div class="grid-item badge badge-outline-primary">Water Only</div>  
+									<div class="grid-item badge badge-outline-primary">Electric Only</div>
+                  <div class="grid-item badge badge-outline-primary">Gas Only</div>
+                  <div class="grid-item badge badge-outline-primary">Combo utility</div> 
+									<div class="grid-item badge badge-outline-primary">Portal Customers</div>
+									<div class="grid-item badge badge-outline-primary">Not Invoiced</div>
+									<div class="grid-item badge badge-outline-primary">To be invoiced next month</div>
+									<div class="grid-item badge badge-outline-primary">Add-on Apps</div>  
+								</div>
+								</div>
+								
+							</div>
+							</div>
+                 <div class="col-12">
+                   <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" style="float: left;">
+			  </h4>
+           <div style="float: right" class="previous-entity">
+                     
+                      </div>
+                  <div class="table-responsive">
+				  
+				  
+                    <table id="order-listing1" class="table table-bordered">
+                      <thead>
+                        <tr>
+                            <th>Primary</th>
+                            <th>Customer ID</th>
+                            <th>Build Product</th>
+                            <th>Order Date</th>
+                            <th>Project Code</th>
+                            <th>Sensus Order #</th>
+                            <th>W End Points</th>
+                            <th>G End Points</th>
+                            <th>E End Points</th>
+                            <th>Year 1 Annual Fee</th>
+                            <th>Year 2 Annual Fee</th>
+                            
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for data in master_data %}
+                         <tr>
+                            <td>{{data.utility}}</td>
+                            <td>{{data.customer_id}}</td>
+                            <td>{{data.build_product}}</td>
+                            <td>{{data.order_date}}</td>
+                            <td>{{data.project_code}}</td>
+                            <td>{{data.sensus_order}}</td>
+                            <td>{{data.w_end_points}}</td>
+                            <td>{{data.g_end_points}}</td>
+                            <td>{{data.e_end_points}}</td>
+                            <td>{{data.year1_annual_fee}}</td>
+                            <td>{{data.year2_annual_fee}}</td>              
+                        </tr>
+                         {% endfor %}
+           
+                      </tbody>
+                    </table>
+                  </div>
+
+
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block script %}
+  <!-- container-scroller -->
+  <script type="text/javascript">
+     $('#order-listing1').DataTable({
+              'paging'      : true,
+              'lengthChange': true,
+              'searching'   : true,
+              'ordering'    : true,
+              'info'        : true,
+              'autoWidth'   : false,
+            });
+    var d = new Date();
+    document.getElementById('cp_year').innerHTML = d.getFullYear();
+  </script>
+{% endblock %}
