@@ -232,10 +232,11 @@ def show_gas_meter(request):
 		except:
 			customer_report = None
 		if obj:
-
-			show_gas_list.append()
+			show_gas_list.append(obj[0])
+	return render(request,'overview_gas.html',{'master_data':show_gas_list})
 
 def show_water_meter(request):
+	# import pdb;pdb.set_trace()
 	show_water_list = []
 	master_data = MasterData.objects.all()
 	water_customers = PortalUtility.objects.filter(water='Y')
@@ -246,5 +247,20 @@ def show_water_meter(request):
 		except:
 			customer_report = None
 		if obj:
+			show_water_list.append(obj[0])
+	return render(request,'overview_water.html',{'master_data':show_water_list})
 
-			show_gas_list.append()	
+
+def show_electric_meter(request):
+	show_electric_list = []
+	master_data = MasterData.objects.all()
+	electric_customers = PortalUtility.objects.filter(electric='Y')
+	for customer in electric_customers:
+		obj = master_data.filter(customer_id=customer.customer_id)
+		try:
+			customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		except:
+			customer_report = None
+		if obj:
+			show_electric_list.append(obj[0])
+	return render(request,'overview_electric.html',{'master_data':show_electric_list})
