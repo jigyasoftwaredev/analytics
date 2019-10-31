@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MasterData,CustomerReport,PortalUtility
+from .models import MasterData,CustomerReport,BillingsBacklog,PortalUtility
 import xlrd
 import csv
 
@@ -264,3 +264,58 @@ def show_electric_meter(request):
 		if obj:
 			show_electric_list.append(obj[0])
 	return render(request,'overview_electric.html',{'master_data':show_electric_list})
+
+def save_billingblockhold():
+	book = xlrd.open_workbook('media/' + 'BillingsBacklogOnhold.xlsx')
+	sheet = book.sheet_by_index(0)
+	for i in range(sheet.nrows):
+		col = sheet.row_values(i)
+	# for i in range(sheet.nrows):
+		if col[0] != '' and col[0]!='order_status':
+			try:
+				print 'Good'
+				node = BillingsBacklog()
+				node.order_status = col[0]
+				node.salesperson = col[1]
+				node.date_entered = col[2]
+				node.cust_name_bill_to = col[3]
+				node.customer_name = col[4]
+				node.item_number = col[5]
+				node.item_description = col[6]
+				node.order_number = col[7]
+				node.order_line_number = col[8]
+				node.total_sales = col[9]
+				node.quantity = col[10]
+				node.unit_sales_price = col[11]
+				node.project_code = col[12]
+				node.date_invoiced = col[13]    
+				node.ship_to_number = col[14]
+				node.early_ship = col[15]
+				node.promotion_region = col[16]
+				node.product_code = col[17]
+				node.entered_by = col[18]
+				node.item_class = col[19]
+				node.date_committed = col[20]
+				node.customer_no_bill_to = col[21]
+				node.date_requested = col[22]
+				node.date_customer_request = col[23]
+				node.customer_po = col[24]
+				node.warehouse = col[25]
+				node.facility = col[26]
+				node.item_type = col[27]
+				node.ship_to_state = col[28]
+				node.invoice_number = col[29]
+				node.manufacturing_group = col[30]
+				node.hold_reason = col[31]
+				node.po_number = col[32]
+				node.save()
+			except Exception as e:
+				import pdb;pdb.set_trace()
+				# print e
+def customer_overview(request,pk):
+	# try:
+	# 	cust_id = MasterData.objects.get(id=pk).customer_id
+	# except:
+	# 	cust_id = None
+	# 	return HttpResponse('No Customer')	
+	return render(request,'customeroverview.html')

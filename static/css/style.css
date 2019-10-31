@@ -28707,10 +28707,16 @@ div.tagsinput span.tag a {
 }
 
 .previous-entity select{
-
-
-      display: inline-block;
-    width: auto;
+  display: inline-block;
+  width: auto;
 }
 
+.active-item {
+  background: #133895!important;
+  color: #FFF!important;  
+}
+
+.active-item a{
+  color: #FFF!important;  
+}
 /*# sourceMappingURL=../maps/horizontal-layout-light/style.css.map */
