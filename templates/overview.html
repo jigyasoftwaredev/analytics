@@ -30,8 +30,8 @@
 									<div class="grid-item badge badge-outline-primary"><a href='/overview_water/'>Water Only</a></div>  
 									<div class="grid-item badge badge-outline-primary"><a href='/overview_electric/'>Electric Only</a></div>
                   <div class="grid-item badge badge-outline-primary"><a href='/overview_gas/'>Gas Only</a></div>
-                  <div class="grid-item badge badge-outline-primary">Combo utility</div> 
-									<div class="grid-item badge badge-outline-primary">Portal Customers</div>
+                  <div class="grid-item badge badge-outline-primary"><a href='/overview_combo/'>Combo utility</a></div> 
+									<div class="grid-item badge badge-outline-primary"><a href='/overview_portal_customers/'>Portal Customers</div>
 									<div class="grid-item badge badge-outline-primary">Not Invoiced</div>
 									<div class="grid-item badge badge-outline-primary">To be invoiced next month</div>
 									<div class="grid-item badge badge-outline-primary">Add-on Apps</div>  
@@ -71,7 +71,7 @@
                       <tbody>
                         {% for data in master_data %}
                          <tr>
-                            <td><a href="/customer_overview/">{{data.utility}}</a></td>
+                            <td><a href="/customer_overview/{{data.id}}">{{data.utility}}</a></td>
                             <td>{{data.customer_id}}</td>
                             <td>{{data.build_product}}</td>
                             <td>{{data.order_date}}</td>

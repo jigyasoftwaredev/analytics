@@ -28720,3 +28720,6 @@ div.tagsinput span.tag a {
   color: #FFF!important;  
 }
 /*# sourceMappingURL=../maps/horizontal-layout-light/style.css.map */
+.dash-style{
+  list-style: url('dash.svg');
+}

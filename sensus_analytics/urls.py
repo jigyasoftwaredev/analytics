@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import  static
 from analytics.views import dashboard,second_view,show_electric_meter,show_water_meter,show_gas_meter,customer_overview
+from analytics.views import show_portal_customers,show_combo_meter
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',dashboard),
@@ -25,6 +26,8 @@ urlpatterns = [
     url(r'^overview_gas/',show_gas_meter),
     url(r'^overview_water/',show_water_meter),
     url(r'^overview_electric/',show_electric_meter),
+    url(r'^overview_portal_customers/',show_portal_customers),
+    url(r'^overview_combo/',show_combo_meter),
     url(r'^customer_overview/(?P<pk>[0-9]*)[/]*$',customer_overview),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

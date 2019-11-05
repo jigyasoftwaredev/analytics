@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import MasterData,CustomerReport,BillingsBacklog,PortalUtility
 import xlrd
 import csv
+from datetime import datetime, timedelta
+
 
 # Create your views here.
 def create_master():
@@ -264,6 +266,38 @@ def show_electric_meter(request):
 		if obj:
 			show_electric_list.append(obj[0])
 	return render(request,'overview_electric.html',{'master_data':show_electric_list})
+def show_combo_meter(request):
+	show_combo_list = []
+	master_data = MasterData.objects.all()
+	master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	for customer in master_customers:
+		obj = master_data.filter(customer_id=customer.customer_id)
+		try:
+			customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		except:
+			customer_report = None
+		if obj:
+			show_combo_list.append(obj[0])
+	return render(request,'overview_combo.html',{'master_data':show_combo_list})
+def show_portal_customers(request):
+	show_portal_list = []
+	master_data = MasterData.objects.all()
+	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	master_customers = BillingsBacklog.objects.filter(item_description__icontains='PORTAL')
+	for customer in master_customers:
+		obj = master_data.filter(project_code=customer.project_code)
+		# try:
+		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		# 	customer_report = None
+		if obj:
+			if obj[0] not in show_portal_list:
+				show_portal_list.append(obj[0])
+	return render(request,'overview_portal.html',{'master_data':show_portal_list})
+
+def from_excel_ordinal(ordinal, _epoch0=datetime(1899, 12, 31)):
+    if ordinal > 59:
+        ordinal -= 1  # Excel leap year bug, 1900 is not a leap year!
+    return (_epoch0 + timedelta(days=ordinal)).replace(microsecond=0).date()
 
 def save_billingblockhold():
 	book = xlrd.open_workbook('media/' + 'BillingsBacklogOnhold.xlsx')
@@ -313,9 +347,135 @@ def save_billingblockhold():
 				import pdb;pdb.set_trace()
 				# print e
 def customer_overview(request,pk):
-	# try:
-	# 	cust_id = MasterData.objects.get(id=pk).customer_id
-	# except:
-	# 	cust_id = None
-	# 	return HttpResponse('No Customer')	
-	return render(request,'customeroverview.html')
+	try:
+		# import pdb;pdb.set_trace()
+		portal_user_data = []
+		gas_data = []
+		water_data = []
+		electric_data = []
+		obj = MasterData.objects.get(id=pk)
+		given_gas_points = obj.g_end_points
+		if given_gas_points == '':
+			given_gas_points = '0.0' 
+		given_water_points = obj.w_end_points
+		if given_water_points == '':
+			given_water_points = '0.0'
+		given_electric_points = obj.e_end_points
+		if given_electric_points == '':
+			given_electric_points = '0.0'
+		cust_id = obj.customer_id
+		utility = obj.utility 
+		sa_type = obj.build_product
+		project_code = obj.project_code
+		meter_data = CustomerReport.objects.filter(customer_id=cust_id)
+		actual_water_count = 0
+		actual_electric_count = 0
+		actual_gas_count = 0
+		if meter_data:
+			for mdata in meter_data:
+				if mdata.commodity == 'WATER':
+					actual_water_count = int(mdata.active_meters_count)
+				elif mdata.commodity == 'ELECTRIC':
+					actual_electric_count = int(mdata.active_meters_count)
+				elif mdata.commodity == 'GAS':
+					actual_gas_count = int(mdata.active_meters_count)
+		gas_data.append(int(float(given_gas_points)))
+		gas_data.append(actual_gas_count)
+		water_data.append(int(float(given_water_points)))
+		water_data.append(actual_water_count)
+		electric_data.append(int(float(given_electric_points)))
+		electric_data.append(actual_electric_count)
+		billing_obj = BillingsBacklog.objects.filter(project_code=project_code)
+		if billing_obj:
+			found_portal_users = 0
+			for bobj in billing_obj:
+				if 'CONSUMER PORTAL <1500 ANNL ANNUAL USE FEE 0-1500' in bobj.item_description:
+					found_portal_users = 1500
+			actual_portal_users=  PortalUtility.objects.filter(customer_id=cust_id)
+			if actual_portal_users:
+				actual_portal_users_count = int(actual_portal_users[0].portal_users_count)
+			else:
+				actual_portal_users_count = 0
+			portal_user_data.append(found_portal_users)
+			portal_user_data.append(actual_portal_users_count)
+			# invoice_date =
+			master_annual_fees = [] 
+			# text_messages_data = 
+			# ELE CONSUMER PORTAL <1500 ANNL ANNUAL USE FEE 0-1500
+			get_unique_invoices = []
+			get_unique_date_committed = []
+			for bobj in billing_obj:
+				if bobj.date_invoiced !='':
+					if bobj.date_invoiced not in get_unique_invoices:
+						get_unique_invoices.append(bobj.date_invoiced)
+				else:
+					if bobj.date_committed not in get_unique_date_committed:
+						get_unique_date_committed.append(bobj.date_committed)
+			# SENSUS ELE ANALYTCS ENH 5-10K  ENHANCED   ANNUAL FEE
+			water_objs = billing_obj.filter(item_description__icontains = 'WTR ANALYTICS')
+			electric_objs = billing_obj.filter(item_description__icontains = 'ELE ANALYTCS')
+			gas_objects = billing_obj.filter(item_description__icontains = 'GAS ANALYTCS')
+			other_objs =  [obj for obj in billing_obj if 'ANNL ANNUAL USE' in obj.item_description]
+			for obj in other_objs:
+				if obj.date_invoiced != '':
+					obj.date_invoiced = from_excel_ordinal(int(float(obj.date_invoiced)))
+			master_annual_data = []
+			for inobj in get_unique_invoices:
+				#Filter Water Object
+				total_annual_fee = 0 
+				wobj = water_objs.filter(date_invoiced=inobj)
+				#Filter gas Object
+				gobj = gas_objects.filter(date_invoiced=inobj)
+				#Filter Electric object
+				eobj = electric_objs.filter(date_invoiced=inobj)
+				if wobj:
+					total_annual_fee += int(float(wobj[0].total_sales))
+				if gobj:
+					total_annual_fee += int(float(gobj[0].total_sales))
+				if eobj:
+					total_annual_fee += int(float(eobj[0].total_sales))
+				if total_annual_fee>0:
+					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee])
+			for cobj in get_unique_date_committed:
+				total_annual_fee = 0 
+				wobj = water_objs.filter(date_committed=cobj)
+				#Filter gas Object
+				gobj = gas_objects.filter(date_committed=cobj)
+				#Filter Electric object
+				eobj = electric_objs.filter(date_committed=cobj)
+				if wobj:
+					total_annual_fee += int(float(wobj[0].total_sales))
+				if gobj:
+					total_annual_fee += int(float(gobj[0].total_sales))
+				if eobj:
+					total_annual_fee += int(float(eobj[0].total_sales))
+				if total_annual_fee>0:
+					master_annual_data.append(['',total_annual_fee])
+			msg_data = ''
+			setup_data = ''
+			addon_data = ''
+			for obj in billing_obj: 
+				if 'TEXT MESSAGES' in obj.item_description:
+					msg_data+= '$ '+obj.total_sales + ', '
+			for obj in billing_obj:
+				if 'SYSTEM SETUP' in obj.item_description:
+					setup_data+= '$'+obj.total_sales+ ', ' 
+			for obj in billing_obj:
+				if 'SENSUS CUSTOM DEVELOP SERVICES' in obj.item_description:
+					addon_data+= '$'+obj.total_sales+ ', '
+			if msg_data == '':
+				msg_data = '$0'
+			if setup_data == '':
+				setup_data = '$0'
+			if addon_data == '':
+				addon_data = '$0'
+
+			# TEXT MESSAGES 
+			# SYSTEM SETUP
+			# SENSUS CUSTOM DEVELOP SERVICES
+	except Exception,e:
+		cust_id = ''
+		sa_type = ''
+
+
+	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data})
