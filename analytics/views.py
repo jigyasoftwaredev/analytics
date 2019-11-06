@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 # Create your views here.
 def create_master():
-	import pdb;pdb.set_trace()
+	# import pdb;pdb.set_trace()
 	book = xlrd.open_workbook('media/' + 'SA Build Master Sheet.xlsx')
 	# res = len(book.sheet_names())
 	# print res
@@ -85,7 +85,7 @@ def create_master():
 				# print e
 
 def save_customer():
-	import pdb;pdb.set_trace()
+	# import pdb;pdb.set_trace()
 	rows = []
 	with open('media/Customers_Report.csv', 'r') as csvfile: 
 	# creating a csv reader object 
@@ -479,3 +479,21 @@ def customer_overview(request,pk):
 
 
 	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data})
+
+
+
+def delete_data():
+	customer_data = CustomerReport.objects.all()
+	master_sheet_data = MasterData.objects.all()
+	portal_data = PortalUtility.objects.all()
+	backhold_data = BillingsBacklog.objects.all()
+	for data in customer_data:
+		data.delete()
+	for data in master_sheet_data:
+		data.delete()
+	for data in portal_data:
+		data.delete()
+	for data in backhold_data:
+		data.delete()
+
+		
