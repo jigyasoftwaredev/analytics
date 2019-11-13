@@ -215,7 +215,23 @@ def dashboard(request):
 	sa_enhanced = (float(sa_enhanced_orders)/float(total))*100
 	sa_essential = (float(sa_essential_orders)/float(total))*100
 	other_sa = 100.0- (sa_essential + sa_enhanced)
-	return render(request,'index.html',{'e_end':electric_end_points,'g_end':gas_end_points,'w_end':water_end_points,'sa_essential_orders':sa_essential,'sa_enhanced_orders':sa_enhanced,'other_sa':other_sa})
+	show_portal_list = []
+	master_customers = BillingsBacklog.objects.filter(item_description__icontains='PORTAL')
+	for customer in master_customers:
+		obj = master_data.filter(project_code=customer.project_code)
+		# try:
+		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		# 	customer_report = None
+		if obj:
+			if obj[0] not in show_portal_list:
+				show_portal_list.append(obj[0])
+	sa_orders =  master_data.count() - len(show_portal_list)
+	portal_orders = len(show_portal_list)
+	total_orders = master_data.count()
+	sa_o = (float(sa_orders)/float(total_orders))*100
+	sa_p = (float(portal_orders)/float(total_orders))*100
+	# other_sa = 100.0- (sa_enhanced + sa_essential)
+	return render(request,'index.html',{'e_end':electric_end_points,'g_end':gas_end_points,'w_end':water_end_points,'sa_essential_orders':sa_essential,'sa_enhanced_orders':sa_enhanced,'other_sa':other_sa,'sa_o':sa_o,'sa_p':sa_p})
 
 
 def second_view(request):
@@ -226,7 +242,7 @@ def second_view(request):
 def show_gas_meter(request):
 	show_gas_list = []
 	master_data = MasterData.objects.all()
-	gas_customers = PortalUtility.objects.filter(gas='Y')
+	gas_customers = PortalUtility.objects.filter(gas='Y',water='N',electric='N')
 	for customer in gas_customers:
 		obj = master_data.filter(customer_id=customer.customer_id)
 		try:
@@ -241,7 +257,7 @@ def show_water_meter(request):
 	# import pdb;pdb.set_trace()
 	show_water_list = []
 	master_data = MasterData.objects.all()
-	water_customers = PortalUtility.objects.filter(water='Y')
+	water_customers = PortalUtility.objects.filter(electric='N',water='Y',gas='N')
 	for customer in water_customers:
 		obj = master_data.filter(customer_id=customer.customer_id)
 		try:
@@ -256,7 +272,7 @@ def show_water_meter(request):
 def show_electric_meter(request):
 	show_electric_list = []
 	master_data = MasterData.objects.all()
-	electric_customers = PortalUtility.objects.filter(electric='Y')
+	electric_customers = PortalUtility.objects.filter(electric='Y',water='N',gas='N')
 	for customer in electric_customers:
 		obj = master_data.filter(customer_id=customer.customer_id)
 		try:
@@ -269,7 +285,7 @@ def show_electric_meter(request):
 def show_combo_meter(request):
 	show_combo_list = []
 	master_data = MasterData.objects.all()
-	master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	master_customers = PortalUtility.objects.all().exclude(electric='Y',water='N',gas='N').exclude(electric='N',water='Y',gas='N').exclude(gas='Y',water='N',electric='N')
 	for customer in master_customers:
 		obj = master_data.filter(customer_id=customer.customer_id)
 		try:
@@ -280,6 +296,21 @@ def show_combo_meter(request):
 			show_combo_list.append(obj[0])
 	return render(request,'overview_combo.html',{'master_data':show_combo_list})
 def show_portal_customers(request):
+	show_portal_list = []
+	master_data = MasterData.objects.all()
+	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	master_customers = BillingsBacklog.objects.filter(item_description__icontains='PORTAL')
+	for customer in master_customers:
+		obj = master_data.filter(project_code=customer.project_code)
+		# try:
+		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		# 	customer_report = None
+		if obj:
+			if obj[0] not in show_portal_list:
+				show_portal_list.append(obj[0])
+	return render(request,'overview_portal.html',{'master_data':show_portal_list})
+
+def show_invoice_next_sss(request):
 	show_portal_list = []
 	master_data = MasterData.objects.all()
 	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
@@ -348,7 +379,6 @@ def save_billingblockhold():
 				# print e
 def customer_overview(request,pk):
 	try:
-		# import pdb;pdb.set_trace()
 		portal_user_data = []
 		gas_data = []
 		water_data = []
@@ -497,3 +527,10 @@ def delete_data():
 		data.delete()
 
 		
+def to_be_invoiced():
+	import datetime
+	d1 = datetime.date.today()
+	from dateutil.relativedelta import relativedelta
+	d2 = d1 + relativedelta(months=1)
+	next_month = d2.month()
+	from dateutil import parse

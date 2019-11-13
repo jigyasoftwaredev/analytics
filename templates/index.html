@@ -210,8 +210,8 @@ var pie = new d3pie("my_dataviz", {
     },
 "data": {
     "content": [
-      {"label":"SA","value":80, color: "#008C95"},
-      {"label":"Portal", "value":20, color: "#E57200"}
+      {"label":"SA","value":parseFloat('{{sa_o}}'), color: "#008C95"},
+      {"label":"Portal", "value":parseFloat('{{sa_p}}'), color: "#E57200"}
       ]
   }
  });
