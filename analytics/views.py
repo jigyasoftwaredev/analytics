@@ -474,11 +474,14 @@ def customer_overview(request,pk):
 				#Filter Electric object
 				eobj = electric_objs.filter(date_committed=cobj)
 				if wobj:
-					total_annual_fee += int(float(wobj[0].total_sales))
+					for wwo in wobj:
+						total_annual_fee += float(wwo.total_sales)
 				if gobj:
-					total_annual_fee += int(float(gobj[0].total_sales))
+					for ggo in gobj:
+						total_annual_fee += float(ggo.total_sales)
 				if eobj:
-					total_annual_fee += int(float(eobj[0].total_sales))
+					for eeo in eobj:
+						total_annual_fee += float(eeo.total_sales)
 				if total_annual_fee>0:
 					master_annual_data.append(['',total_annual_fee])
 			msg_data = ''
