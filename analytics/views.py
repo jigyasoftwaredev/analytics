@@ -560,10 +560,10 @@ def customer_overview(request,pk):
 					except:
 						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 	except Exception,e:
-		import pdb;pdb.set_trace()
+		# import pdb;pdb.set_trace()
 		cust_id = ''
 		sa_type = ''
-		# master_annual_data = []
+		master_annual_data = []
 
 	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data})
 
