@@ -379,6 +379,7 @@ def save_billingblockhold():
 				# print e
 def customer_overview(request,pk):
 	try:
+		# import pdb;pdb.set_trace()
 		portal_user_data = []
 		gas_data = []
 		water_data = []
@@ -447,8 +448,22 @@ def customer_overview(request,pk):
 			gas_objects = billing_obj.filter(item_description__icontains = 'GAS ANALYTCS')
 			other_objs =  [obj for obj in billing_obj if 'ANNL ANNUAL USE' in obj.item_description]
 			for obj in other_objs:
-				if obj.date_invoiced != '':
-					obj.date_invoiced = from_excel_ordinal(int(float(obj.date_invoiced)))
+				try:
+					if obj.date_invoiced != '':
+						obj.date_invoiced = from_excel_ordinal(int(float(obj.date_invoiced)))
+				except:
+					pass
+			for obj in billing_obj:
+				try:
+					if obj.date_invoiced != '':
+						obj.date_invoiced = from_excel_ordinal(int(float(obj.date_invoiced)))
+				except:
+					pass
+				try:
+					if obj.date_entered != '':
+						obj.date_entered = from_excel_ordinal(int(float(obj.date_entered)))
+				except:
+					pass
 			master_annual_data = []
 			for inobj in get_unique_invoices:
 				#Filter Water Object
@@ -460,12 +475,21 @@ def customer_overview(request,pk):
 				eobj = electric_objs.filter(date_invoiced=inobj)
 				if wobj:
 					total_annual_fee += int(float(wobj[0].total_sales))
+					order_no = wobj[0].order_number
+					order_line_number = wobj[0].order_line_number
+					invoice_number = wobj[0].invoice_number
 				if gobj:
 					total_annual_fee += int(float(gobj[0].total_sales))
+					order_no = gobj[0].order_number
+					order_line_number = gobj[0].order_line_number
+					invoice_number = gobj[0].invoice_number
 				if eobj:
 					total_annual_fee += int(float(eobj[0].total_sales))
+					order_no = eobj[0].order_number
+					order_line_number = eobj[0].order_line_number
+					invoice_number = eobj[0].invoice_number	
 				if total_annual_fee>0:
-					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee])
+					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee,invoice_number,order_no,order_line_number])
 			for cobj in get_unique_date_committed:
 				total_annual_fee = 0 
 				wobj = water_objs.filter(date_committed=cobj)
@@ -476,40 +500,70 @@ def customer_overview(request,pk):
 				if wobj:
 					for wwo in wobj:
 						total_annual_fee += float(wwo.total_sales)
+					order_no = wobj[0].order_number
+					order_line_number = wobj[0].order_line_number
+					invoice_number = wobj[0].invoice_number
 				if gobj:
 					for ggo in gobj:
 						total_annual_fee += float(ggo.total_sales)
+					order_no = gobj[0].order_number
+					order_line_number = gobj[0].order_line_number
+					invoice_number = gobj[0].invoice_number
 				if eobj:
 					for eeo in eobj:
 						total_annual_fee += float(eeo.total_sales)
+					order_no = eobj[0].order_number
+					order_line_number = eobj[0].order_line_number
+					invoice_number = eobj[0].invoice_number
 				if total_annual_fee>0:
-					master_annual_data.append(['',total_annual_fee])
-			msg_data = ''
-			setup_data = ''
-			addon_data = ''
-			for obj in billing_obj: 
+					master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+			# msg_data = ''
+			# setup_data = ''
+			# addon_data = ''
+			# for obj in billing_obj: 
+			# 	if 'TEXT MESSAGES' in obj.item_description:
+			# 		msg_data+= '$ '+obj.total_sales + ', '
+			# for obj in billing_obj:
+			# 	if 'SYSTEM SETUP' in obj.item_description:
+			# 		setup_data+= '$'+obj.total_sales+ ', ' 
+			# for obj in billing_obj:
+			# 	if 'SENSUS CUSTOM DEVELOP SERVICES' in obj.item_description:
+			# 		addon_data+= '$'+obj.total_sales+ ', '
+			# if msg_data == '':
+			# 	msg_data = '$0'
+			# if setup_data == '':
+			# 	setup_data = '$0'
+			# if addon_data == '':
+			# 	addon_data = '$0'
+			msg_data = []
+			setup_data = []
+			addon_data = []
+			for obj in billing_obj:
 				if 'TEXT MESSAGES' in obj.item_description:
-					msg_data+= '$ '+obj.total_sales + ', '
-			for obj in billing_obj:
-				if 'SYSTEM SETUP' in obj.item_description:
-					setup_data+= '$'+obj.total_sales+ ', ' 
-			for obj in billing_obj:
-				if 'SENSUS CUSTOM DEVELOP SERVICES' in obj.item_description:
-					addon_data+= '$'+obj.total_sales+ ', '
-			if msg_data == '':
-				msg_data = '$0'
-			if setup_data == '':
-				setup_data = '$0'
-			if addon_data == '':
-				addon_data = '$0'
-
+					try:
+						msg_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+					except:
+						msg_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 			# TEXT MESSAGES 
 			# SYSTEM SETUP
+			for obj in billing_obj:
+				if 'SYSTEM SETUP' in obj.item_description:
+					try:
+						setup_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+					except:
+						setup_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 			# SENSUS CUSTOM DEVELOP SERVICES
+			for obj in billing_obj:
+				if 'SENSUS CUSTOM DEVELOP SERVICES' in obj.item_description:
+					try:
+						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
+					except:
+						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 	except Exception,e:
+		import pdb;pdb.set_trace()
 		cust_id = ''
 		sa_type = ''
-
+		# master_annual_data = []
 
 	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data})
 

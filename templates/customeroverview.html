@@ -130,6 +130,8 @@
                         </tr>
                             <th>Invoice Dates</th>
                             <th>Reported</th>
+                            <th>Invoice #</th>
+                            <th>Order /Line No</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -137,7 +139,8 @@
                          <tr>
                             <td> {{data.0}}</td>
                             <td> {{data.1}}</td>            
-                          
+                            <td>{{data.2}}</td>
+                            <td>{{data.3}} - {{data.4}}</td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -146,7 +149,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="col-3">
+                <!-- <div class="col-3">
                     <ul class="dash-style">
                 <li>Text Messaging
          
@@ -167,7 +170,7 @@
                       </ul>
                       </li>
                   </ul>
-                </div>
+                </div> -->
                 </div>
 
               </div>
@@ -202,20 +205,24 @@
 			<div class="col-5"  style="margin-top:5px;">
 		    <div class="card">
             <div class="card-body">
-              <h4 class="card-title" style="float: left; margin-bottom:0px;">Annual Fees</h4>
+              <h4 class="card-title" style="float: left; margin-bottom:0px;">Portal Annual Fees</h4>
 				<div class="table-responsive">
                     <table class="table table-bordered" id="annualfeestable">
                       <thead>
                         <tr>
-                            <th>Invoice Dates</th>
-                            <th>Reported</th>
+                            <th>Invoice Date</th>
+                            <th>Annual Fee</th>
+                            <th>Invoice#</th>
+                            <th>Order/Line no</th>
                         </tr>
                       </thead>
                       <tbody>
                         {% for obj in other_objs %} 
                          <tr>
                             <td> {{obj.date_invoiced}}</td>
-                            <td> {{obj.total_sales}}</td>         
+                            <td> {{obj.total_sales}}</td>
+                            <td>{{obj.invoice_number}}</td>
+                            <td>{{obj.order_number}} - {{obj.order_line_number}}</td>         
                         </tr>
                         {% endfor %}
                       </tbody>
@@ -225,6 +232,96 @@
               </div>
             </div>
                  
+            <div class="col-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="float: left; margin-bottom:0px;">Text Message Annual Fees</h4>
+        <div class="table-responsive">
+                    <table class="table table-bordered" id="onetable">
+                      <thead>
+                        <tr>
+                            <th>Invoice Date</th>
+                            <th>Annual Fee</th>
+                            <th>Invoice#</th>
+                            <th>Order/Line no</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for obj in msg_data %} 
+                         <tr>
+                            <td> {{obj.0}}</td>
+                            <td> {{obj.1}}</td>
+                            <td>{{obj.2}}</td>
+                            <td>{{obj.3}} - {{obj.4}}</td>         
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <div class="col-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" style="float: left; margin-bottom:0px;">Setup Annual Fees</h4>
+        <div class="table-responsive">
+                    <table class="table table-bordered" id="twotable">
+                      <thead>
+                        <tr>
+                            <th>Invoice Date</th>
+                            <th>Annual Fee</th>
+                            <th>Invoice#</th>
+                            <th>Order/Line no</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for obj in setup_data %} 
+                         <tr>
+                            <td> {{obj.0}}</td>
+                            <td> {{obj.1}}</td>
+                            <td>{{obj.2}}</td>
+                            <td>{{obj.3}} - {{obj.4}}</td>         
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <div class="col-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" style="float: left; margin-bottom:0px;">Add on Annual Fees</h4>
+        <div class="table-responsive">
+                    <table class="table table-bordered" id="threetable">
+                      <thead>
+                        <tr>
+                            <th>Invoice Date</th>
+                            <th>Annual Fee</th>
+                            <th>Invoice#</th>
+                            <th>Order/Line no</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for obj in addon_data %} 
+                         <tr>
+                            <td> {{obj.0}}</td>
+                            <td> {{obj.1}}</td>
+                            <td>{{obj.2}}</td>
+                            <td>{{obj.3}} - {{obj.4}}</td>         
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+            
                  
 			<div class="col-12" >
           <div class="card" style="margin-top:10px;">
@@ -238,6 +335,13 @@
                         <th>Item Description</th>
                         <th>Order Number</th>
                         <th>Order Line Number</th>
+                        <th>Order Date</th>
+                        <th>Annual Fee</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Number</th>
+                        <th>SalesPerson</th>
+                        <th>Customer Bill To </th>
+                        <th>Customer Ship To</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -247,7 +351,13 @@
                         <td>{{obj.item_description}}</td>          
                         <td>{{obj.order_number}}</td>          
                         <td>{{obj.order_line_number}}</td>          
-                    
+                        <td>{{obj.date_entered}}</td>
+                        <td>{{obj.total_sales}}</td>
+                        <td>{{obj.date_invoiced}}</td>
+                        <td>{{obj.invoice_number}}</td>
+                        <td>{{obj.salesperson}}</td>
+                        <td>{{obj.cust_name_bill_to}}</td>
+                        <td>{{obj.customer_name}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>
@@ -282,6 +392,21 @@
     "ordering": false,
     });
     $('#annualfeestable').DataTable({
+    "bLengthChange": false,
+    "ordering": false,
+    "searching": false
+    });
+    $('#onetable').DataTable({
+    "bLengthChange": false,
+    "ordering": false,
+    "searching": false
+    });
+    $('#twotable').DataTable({
+    "bLengthChange": false,
+    "ordering": false,
+    "searching": false
+    });
+    $('#threetable').DataTable({
     "bLengthChange": false,
     "ordering": false,
     "searching": false
