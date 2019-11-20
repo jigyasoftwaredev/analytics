@@ -25,12 +25,16 @@
 						   <div class="col-12">
                   <div class="card">
                   <div class="card-body">
+                  {% if error %}
+                    <h5 style="color:red">Billing Data Doesn't Exist</h5>
+                  {% else %}
                   <h4 class="card-title text-dark" style="margin-bottom:0px;">
                   Customer Overview
                   <span style="float:right; text-align: right;">{{utility}}<br/>
                  {{sa_type}}
                  </span>					
                   </h4>
+                  {% endif %}
                   	<div class="grid-container">
                   		
                   	</div>

@@ -379,7 +379,6 @@ def save_billingblockhold():
 				# print e
 def customer_overview(request,pk):
 	try:
-		# import pdb;pdb.set_trace()
 		portal_user_data = []
 		gas_data = []
 		water_data = []
@@ -559,6 +558,23 @@ def customer_overview(request,pk):
 						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
 					except:
 						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+		else:
+			cust_id = ''
+			sa_type = ''
+			master_annual_data = []
+			error = True
+			other_objs = []
+			msg_data = []
+			addon_data = []
+			setup_data = []
+			billing_obj = None
+			electric_data = []
+			gas_data = []
+			water_data = []
+			portal_user_data = []						
+			return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data,'error':error})
+
+
 	except Exception,e:
 		# import pdb;pdb.set_trace()
 		cust_id = ''
