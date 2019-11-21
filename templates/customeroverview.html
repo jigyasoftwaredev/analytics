@@ -133,7 +133,7 @@
                         <thead>
                         </tr>
                             <th>Invoice Dates</th>
-                            <th>Reported</th>
+                            <th>Annual Fees</th>
                             <th>Invoice #</th>
                             <th>Order /Line No</th>
                         </tr>
@@ -142,7 +142,7 @@
                           {% for data in master_annual_data %}
                          <tr>
                             <td> {{data.0}}</td>
-                            <td> {{data.1}}</td>            
+                            <td> {{data.1}} $</td>            
                             <td>{{data.2}}</td>
                             <td>{{data.3}} - {{data.4}}</td>
                         </tr>
@@ -224,7 +224,7 @@
                         {% for obj in other_objs %} 
                          <tr>
                             <td> {{obj.date_invoiced}}</td>
-                            <td> {{obj.total_sales}}</td>
+                            <td> {{obj.total_sales}} $</td>
                             <td>{{obj.invoice_number}}</td>
                             <td>{{obj.order_number}} - {{obj.order_line_number}}</td>         
                         </tr>
@@ -254,7 +254,7 @@
                         {% for obj in msg_data %} 
                          <tr>
                             <td> {{obj.0}}</td>
-                            <td> {{obj.1}}</td>
+                            <td> {{obj.1}} $</td>
                             <td>{{obj.2}}</td>
                             <td>{{obj.3}} - {{obj.4}}</td>         
                         </tr>
@@ -269,7 +269,7 @@
               <div class="col-4 mt-2">
               <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title" style="float: left; margin-bottom:0px;">Setup Annual Fees</h4>
+                    <h4 class="card-title" style="float: left; margin-bottom:0px;">Setup Fees</h4>
         <div class="table-responsive">
                     <table class="table table-bordered" id="twotable">
                       <thead>
@@ -284,7 +284,7 @@
                         {% for obj in setup_data %} 
                          <tr>
                             <td> {{obj.0}}</td>
-                            <td> {{obj.1}}</td>
+                            <td> {{obj.1}} $</td>
                             <td>{{obj.2}}</td>
                             <td>{{obj.3}} - {{obj.4}}</td>         
                         </tr>
@@ -314,7 +314,7 @@
                         {% for obj in addon_data %} 
                          <tr>
                             <td> {{obj.0}}</td>
-                            <td> {{obj.1}}</td>
+                            <td> {{obj.1}} $</td>
                             <td>{{obj.2}}</td>
                             <td>{{obj.3}} - {{obj.4}}</td>         
                         </tr>
@@ -333,6 +333,7 @@
           <h4 class="card-title" style="float: left; margin-bottom:0px;">&nbsp;</h4>
           <div class="table-responsive">
                 <table class="table table-bordered" id="bigtablecustomer">
+                  <button class="btn btn-success" style="float: right;margin-left:5px;" id='download_v_report'>Export</button>
                   <thead>
                     <tr>
                         <th>Item Number</th>
@@ -436,6 +437,44 @@
       length_sel.removeClass('form-control-sm');
     });
   });
+  $('#download_v_report').on('click', e => {
+          var data = 'project_code='+'{{project_code}}';
+          // let data = app_data;
+          let request = new XMLHttpRequest();
+          request.open('POST', '/download_customer_report/', true);
+          request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+          request.send(data);
+          request.responseType = 'blob';
+
+          request.onload = function (e) {
+              if (this.status === 200) {
+                  let filename = "";
+                  let disposition = request.getResponseHeader('Content-Disposition');
+                  // check if filename is given
+                  if (disposition && disposition.indexOf('attachment') !== -1) {
+                      let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                      let matches = filenameRegex.exec(disposition);
+                      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                  }
+                  let blob = this.response;
+                  if (window.navigator.msSaveOrOpenBlob) {
+                      window.navigator.msSaveBlob(blob, filename);
+                  }
+                  else {
+                      let downloadLink = window.document.createElement('a');
+                      let contentTypeHeader = request.getResponseHeader("Content-Type");
+                      downloadLink.href = window.URL.createObjectURL(new Blob([blob], {type: contentTypeHeader}));
+                      downloadLink.download = filename;
+                      document.body.appendChild(downloadLink);
+                      downloadLink.click();
+                      document.body.removeChild(downloadLink);
+                  }
+              } else {
+                  alert('Download failed.')
+              }
+          };
+          request.send(data);
+      });
 })(jQuery);
 </script>
 

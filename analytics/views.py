@@ -3,8 +3,11 @@ from .models import MasterData,CustomerReport,BillingsBacklog,PortalUtility
 import xlrd
 import csv
 from datetime import datetime, timedelta
-
-
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import HttpResponse
+import xlsxwriter
+import StringIO
 # Create your views here.
 def create_master():
 	# import pdb;pdb.set_trace()
@@ -572,7 +575,7 @@ def customer_overview(request,pk):
 			gas_data = []
 			water_data = []
 			portal_user_data = []						
-			return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data,'error':error})
+			return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data,'error':error,'project_code':project_code})
 
 
 	except Exception,e:
@@ -581,7 +584,7 @@ def customer_overview(request,pk):
 		sa_type = ''
 		master_annual_data = []
 
-	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data})
+	return render(request,'customeroverview.html',{'cust_id':cust_id,'master_annual_data':master_annual_data,'other_objs':other_objs,'utility':utility,'sa_type':sa_type,'portal_user_data':portal_user_data,'gas_data':gas_data,'water_data':water_data,'electric_data':electric_data,'billing_obj':billing_obj,'setup_data':setup_data,'addon_data':addon_data,'msg_data':msg_data,'project_code':project_code})
 
 
 
@@ -607,3 +610,50 @@ def to_be_invoiced():
 	d2 = d1 + relativedelta(months=1)
 	next_month = d2.month()
 	from dateutil import parse
+
+
+@csrf_exempt
+def download_customer_report(request):
+	data = request.POST
+	project_code = json.loads(data['project_code'])
+	from django.utils import timezone
+	time_audit = timezone.now()
+	time_stamp = time_audit.strftime("%Y_%m_%d")
+	file_name = 'customer_report_'+time_stamp+'.xlsx'
+	response = HttpResponse(content_type='application/openxmlformats-officedocument.spreadsheetml.sheet')
+	response['Content-Disposition'] = 'attachment; filename='+file_name
+	output = StringIO.StringIO()
+	wb = xlsxwriter.Workbook(output)
+	nodes = BillingsBacklog.objects.filter(project_code=project_code)
+	p_data = list(nodes.values_list('item_number','item_description','order_number','order_line_number','date_entered','total_sales','date_invoiced','invoice_number','salesperson','cust_name_bill_to','customer_name'))
+	ws = wb.add_worksheet(str(project_code))
+	ws.insert_image('A1', 'media/sensus_xylem_logo.png')
+	columns = ['Item Number','Item Description','Order Number','Order Line Number','Date Entered','Total Sales','Date Invoiced','Invoice Number','Sales Person','Customer Bill To','Customer Ship TO']
+	#Writing columns
+	ws.set_column('A:A', 10)
+	ws.set_column('B:B', 50)
+	ws.set_column('C:C', 20)
+	ws.set_column('D:D', 10)
+	ws.set_column('E:E', 10)
+	ws.set_column('F:F', 20)
+	cell_format = wb.add_format({'bold': True, 'font_color': 'white','bg_color':'#27367f'})
+	for idx,col in enumerate(columns):
+	    ws.write(3, idx, col,cell_format)
+
+	#Writing rows data
+	for rowidx,result in enumerate(p_data,start=3):
+		# import pdb;pdb.set_trace()
+	    for idx, val in enumerate(result):
+	    	try:
+	            if idx == 6:
+	                try:
+	                    val = timezone.localtime(val).strftime('%a %b %d %H:%M%p %Y')
+	                except:
+	                    pass
+	            ws.write(rowidx+1, idx, val.__str__())
+	        except:
+	            ws.write(rowidx+1, idx, val.__repr__())
+		# import pdb;pdb.set_trace()
+	wb.close()
+	response.write(output.getvalue())
+	return response
