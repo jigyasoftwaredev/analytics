@@ -336,10 +336,10 @@
                   <button class="btn btn-success" style="float: right;margin-left:5px;" id='download_v_report'>Export</button>
                   <thead>
                     <tr>
-                        <th>Item Number</th>
-                        <th>Item Description</th>
                         <th>Order Number</th>
                         <th>Order Line Number</th>
+                        <th>Item Number</th>
+                        <th>Item Description</th>
                         <th>Order Date</th>
                         <th>Annual Fee</th>
                         <th>Invoice Date</th>
@@ -352,10 +352,10 @@
                   <tbody>
                     {% for obj in billing_obj %}
                      <tr>
-                        <td>{{obj.item_number}}</td>
-                        <td>{{obj.item_description}}</td>          
                         <td>{{obj.order_number}}</td>          
-                        <td>{{obj.order_line_number}}</td>          
+                        <td>{{obj.order_line_number}}</td>  
+                        <td>{{obj.item_number}}</td>
+                        <td>{{obj.item_description}}</td>                  
                         <td>{{obj.date_entered}}</td>
                         <td>{{obj.total_sales}}</td>
                         <td>{{obj.date_invoiced}}</td>
