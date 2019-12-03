@@ -8,6 +8,8 @@ import json
 from django.http import HttpResponse
 import xlsxwriter
 import StringIO
+from operator import itemgetter
+from datetime import date
 # Create your views here.
 def create_master():
 	# import pdb;pdb.set_trace()
@@ -21,6 +23,7 @@ def create_master():
 	# for i in range(sheet.nrows):
 	    if col[0] != '' and col[0]!='Utility':
 			try:
+				# import pdb;pdb.set_trace()
 				print 'Good'
 				node = MasterData()
 				node.utility = col[0]
@@ -43,7 +46,10 @@ def create_master():
 				node.g_end_points = col[17]
 				node.jira_ticket = col[18]
 				node.region = col[19]
-				node.project_code = col[20]
+				try:
+					node.project_code = int(float(col[20]))
+				except:
+					node.project_code = col[20]
 				node.sensus_order = col[21]
 				node.salesforce_case = col[22]
 				node.order_date = col[23]
@@ -83,7 +89,7 @@ def create_master():
 				node.portal_only = col[57]
 				node.migration_type = col[58]
 				node.save()
-			except:
+			except Exception,e:
 				import pdb;pdb.set_trace()
 				# print e
 
@@ -313,20 +319,87 @@ def show_portal_customers(request):
 				show_portal_list.append(obj[0])
 	return render(request,'overview_portal.html',{'master_data':show_portal_list})
 
-def show_invoice_next_sss(request):
-	show_portal_list = []
+def show_addons(request):
+	show_addon_list = []
 	master_data = MasterData.objects.all()
 	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
-	master_customers = BillingsBacklog.objects.filter(item_description__icontains='PORTAL')
+	master_customers = BillingsBacklog.objects.filter(item_description__icontains='VOLTG INSIGHT') | BillingsBacklog.objects.filter(item_description__icontains='OUTAGE MANGMNT SYSTEM') | BillingsBacklog.objects.filter(item_description__icontains='UNBILLED ENERGY') |BillingsBacklog.objects.filter(item_description__icontains='TRNSFRMR UTILIZ')
 	for customer in master_customers:
 		obj = master_data.filter(project_code=customer.project_code)
 		# try:
 		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
 		# 	customer_report = None
 		if obj:
-			if obj[0] not in show_portal_list:
-				show_portal_list.append(obj[0])
-	return render(request,'overview_portal.html',{'master_data':show_portal_list})
+			if obj[0] not in show_addon_list:
+				show_addon_list.append(obj[0])
+	return render(request,'overview_addon.html',{'master_data':show_addon_list})
+def show_invoice_next_month(request):
+	show_invoice_list = []
+	master_data = MasterData.objects.all()
+	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	master_customers = BillingsBacklog.objects.all()
+	for customer in master_data:
+		dates = []
+		objs = master_customers.filter(project_code=customer.project_code)
+		for obj in objs:
+			try:
+				if obj.date_invoiced != '':
+					obj.date_invoiced = from_excel_ordinal(int(float(obj.date_invoiced)))
+					dates.append(obj.date_invoiced)
+			except:
+				pass
+		if dates != []:
+			if len(dates) > 1:
+				higher_date = dates[0]
+				new_date = dates[0]
+				for ldate in dates:
+					if ldate>= higher_date:
+						new_date = ldate
+				startDate = new_date
+				endDate = date(startDate.year + 1, startDate.month, startDate.day)
+				# replace year only
+				endDate = startDate.replace(startDate.year + 1)
+				today_date = datetime.now().date()
+				if today_date.month == 12:
+					one_month_date = date(today_date.year, 1, today_date.day)
+				else:
+					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
+				if one_month_date > endDate:
+					show_invoice_list.append(customer)
+			else:
+				startDate = dates[0]
+				endDate = date(startDate.year + 1, startDate.month, startDate.day)
+				# replace year only
+				endDate = startDate.replace(startDate.year + 1)
+				today_date = datetime.now().date()
+				if today_date.month == 12:
+					one_month_date = date(today_date.year, 1, today_date.day)
+				else:
+					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
+				if one_month_date > endDate:
+					show_invoice_list.append(customer)
+		# try:
+		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		# 	customer_report = None
+		# if obj:
+		# 	if obj[0] not in show_portal_list:
+		# 		show_portal_list.append(obj[0])
+	return render(request,'overview_next_month.html',{'master_data':show_invoice_list})
+
+def show_notinvoiced(request):
+	show_addon_list = []
+	master_data = MasterData.objects.all()
+	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
+	master_customers = BillingsBacklog.objects.filter(order_status__icontains='Backlog - Current')
+	for customer in master_customers:
+		obj = master_data.filter(project_code=customer.project_code)
+		# try:
+		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
+		# 	customer_report = None
+		if obj:
+			if obj[0] not in show_addon_list:
+				show_addon_list.append(obj[0])
+	return render(request,'overview_notinvoiced.html',{'master_data':show_addon_list})
 
 def from_excel_ordinal(ordinal, _epoch0=datetime(1899, 12, 31)):
     if ordinal > 59:
@@ -339,43 +412,44 @@ def save_billingblockhold():
 	for i in range(sheet.nrows):
 		col = sheet.row_values(i)
 	# for i in range(sheet.nrows):
-		if col[0] != '' and col[0]!='order_status':
+		if col[0] != '' and col[0]!='Name' and col[0]!='Datetime' and col[0]!='Filters' and col[0]!='Records' and col[0] != 'Order Status' :
 			try:
 				print 'Good'
 				node = BillingsBacklog()
 				node.order_status = col[0]
-				node.salesperson = col[1]
-				node.date_entered = col[2]
+				node.salesperson = col[33]
+				node.date_entered = col[32]
 				node.cust_name_bill_to = col[3]
-				node.customer_name = col[4]
-				node.item_number = col[5]
-				node.item_description = col[6]
-				node.order_number = col[7]
-				node.order_line_number = col[8]
-				node.total_sales = col[9]
-				node.quantity = col[10]
-				node.unit_sales_price = col[11]
-				node.project_code = col[12]
-				node.date_invoiced = col[13]    
-				node.ship_to_number = col[14]
-				node.early_ship = col[15]
-				node.promotion_region = col[16]
-				node.product_code = col[17]
-				node.entered_by = col[18]
+				node.customer_number_bill_to = col[2]
+				node.ship_to_number = col[4]
+				node.customer_name_ship_to = col[5]
+				node.customer_name = col[6]
+				node.item_number = col[7]
+				node.item_description = col[8]
+				node.order_number = col[9]
+				node.order_line_number = col[10]
+				node.total_sales = col[13]
+				node.quantity = col[15]
+				node.unit_sales_price = col[16]
+				node.project_code = col[20]
+				node.date_invoiced = col[27]    
+				node.early_ship = col[11]
+				node.promotion_region = col[35]
+				node.product_code = col[18]
+				node.entered_by = col[34]
 				node.item_class = col[19]
-				node.date_committed = col[20]
-				node.customer_no_bill_to = col[21]
-				node.date_requested = col[22]
-				node.date_customer_request = col[23]
-				node.customer_po = col[24]
-				node.warehouse = col[25]
-				node.facility = col[26]
-				node.item_type = col[27]
-				node.ship_to_state = col[28]
-				node.invoice_number = col[29]
-				node.manufacturing_group = col[30]
-				node.hold_reason = col[31]
-				node.po_number = col[32]
+				node.date_committed = col[28]
+				node.date_requested = col[29]
+				node.date_customer_request = col[30]
+				node.customer_po = col[36]
+				node.warehouse = col[37]
+				node.facility = col[38]
+				node.item_type = col[39]
+				node.ship_to_state = col[40]
+				node.invoice_number = col[45]
+				node.manufacturing_group = col[48]
+				node.hold_reason = col[52]
+				node.po_number = col[53]
 				node.save()
 			except Exception as e:
 				import pdb;pdb.set_trace()
@@ -492,6 +566,8 @@ def customer_overview(request,pk):
 					invoice_number = eobj[0].invoice_number	
 				if total_annual_fee>0:
 					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee,invoice_number,order_no,order_line_number])
+			if len(master_annual_data)>1:
+				master_annual_data = sorted(master_annual_data,key=itemgetter(0),reverse=True)		
 			for cobj in get_unique_date_committed:
 				total_annual_fee = 0 
 				wobj = water_objs.filter(date_committed=cobj)
@@ -501,24 +577,32 @@ def customer_overview(request,pk):
 				eobj = electric_objs.filter(date_committed=cobj)
 				if wobj:
 					for wwo in wobj:
-						total_annual_fee += float(wwo.total_sales)
-					order_no = wobj[0].order_number
-					order_line_number = wobj[0].order_line_number
-					invoice_number = wobj[0].invoice_number
+						total_annual_fee = float(wwo.total_sales)
+						order_no = wwo.order_number
+						order_line_number = wwo.order_line_number
+						invoice_number = wwo.invoice_number
+						if total_annual_fee>0:
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+			
 				if gobj:
 					for ggo in gobj:
-						total_annual_fee += float(ggo.total_sales)
-					order_no = gobj[0].order_number
-					order_line_number = gobj[0].order_line_number
-					invoice_number = gobj[0].invoice_number
+						total_annual_fee = float(ggo.total_sales)
+						order_no = ggo.order_number
+						order_line_number = ggo.order_line_number
+						invoice_number = ggo.invoice_number
+						if total_annual_fee>0:
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+			
 				if eobj:
 					for eeo in eobj:
-						total_annual_fee += float(eeo.total_sales)
-					order_no = eobj[0].order_number
-					order_line_number = eobj[0].order_line_number
-					invoice_number = eobj[0].invoice_number
-				if total_annual_fee>0:
-					master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+						total_annual_fee = float(eeo.total_sales)
+						order_no = eeo.order_number
+						order_line_number = eeo.order_line_number
+						invoice_number = eeo.invoice_number
+						if total_annual_fee>0:
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+				# if total_annual_fee>0:
+					# master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
 			# msg_data = ''
 			# setup_data = ''
 			# addon_data = ''
@@ -556,11 +640,33 @@ def customer_overview(request,pk):
 						setup_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 			# SENSUS CUSTOM DEVELOP SERVICES
 			for obj in billing_obj:
-				if 'SENSUS CUSTOM DEVELOP SERVICES' in obj.item_description:
+				if 'VOLTG INSIGHT' in obj.item_description:
 					try:
 						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
 					except:
 						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+				if 'OUTAGE MANGMNT SYSTEM' in obj.item_description:
+					try:
+						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
+					except:
+						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])			
+		
+				if 'UNBILLED ENERGY' in obj.item_description:
+					try:
+						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
+					except:
+						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+				if 'TRNSFRMR UTILIZ' in obj.item_description:
+					try:
+						addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
+					except:
+						addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+				# if '' in obj.item_description:
+				# 	try:
+				# 		addon_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])		
+				# 	except:
+				# 		addon_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])								
+
 		else:
 			cust_id = ''
 			sa_type = ''
