@@ -349,13 +349,15 @@ def show_invoice_next_month(request):
 			except:
 				pass
 		if dates != []:
+			# import pdb;pdb.set_trace()
 			if len(dates) > 1:
-				higher_date = dates[0]
-				new_date = dates[0]
-				for ldate in dates:
-					if ldate>= higher_date:
-						new_date = ldate
-				startDate = new_date
+				sorted_date = sorted(dates)
+				# higher_date = dates[0]
+				# new_date = dates[0]
+				# for ldate in dates:
+				# 	if ldate>= higher_date:
+				# 		new_date = ldate
+				startDate = sorted_date[-1]
 				endDate = date(startDate.year + 1, startDate.month, startDate.day)
 				# replace year only
 				endDate = startDate.replace(startDate.year + 1)
@@ -364,7 +366,8 @@ def show_invoice_next_month(request):
 					one_month_date = date(today_date.year, 1, today_date.day)
 				else:
 					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
-				if one_month_date > endDate:
+				if one_month_date.month == endDate.month and one_month_date.year==endDate.year:
+					# import pdb;pdb.set_trace()
 					show_invoice_list.append(customer)
 			else:
 				startDate = dates[0]
@@ -376,7 +379,8 @@ def show_invoice_next_month(request):
 					one_month_date = date(today_date.year, 1, today_date.day)
 				else:
 					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
-				if one_month_date > endDate:
+				if one_month_date.month == endDate.month and one_month_date.year == endDate.year:
+					# import pdb;pdb.set_trace()
 					show_invoice_list.append(customer)
 		# try:
 		# 	customer_report = CustomerReport.objects.get(customer_id=customer.customer_id)
@@ -390,7 +394,7 @@ def show_notinvoiced(request):
 	show_addon_list = []
 	master_data = MasterData.objects.all()
 	# master_customers = PortalUtility.objects.filter(electric='Y',water='Y',gas='Y')
-	master_customers = BillingsBacklog.objects.filter(order_status__icontains='Backlog - Current')
+	master_customers = BillingsBacklog.objects.filter(order_status__icontains='Backlog - Current',invoice_number='')
 	for customer in master_customers:
 		obj = master_data.filter(project_code=customer.project_code)
 		# try:
@@ -550,20 +554,23 @@ def customer_overview(request,pk):
 				#Filter Electric object
 				eobj = electric_objs.filter(date_invoiced=inobj)
 				if wobj:
-					total_annual_fee += int(float(wobj[0].total_sales))
-					order_no = wobj[0].order_number
-					order_line_number = wobj[0].order_line_number
-					invoice_number = wobj[0].invoice_number
+					for obj in wobj:
+						total_annual_fee += int(float(obj.total_sales))
+						order_no = obj.order_number
+						order_line_number = obj.order_line_number
+						invoice_number = obj.invoice_number
 				if gobj:
-					total_annual_fee += int(float(gobj[0].total_sales))
-					order_no = gobj[0].order_number
-					order_line_number = gobj[0].order_line_number
-					invoice_number = gobj[0].invoice_number
+					for obj in gobj:
+						total_annual_fee += int(float(obj.total_sales))
+						order_no = obj.order_number
+						order_line_number = obj.order_line_number
+						invoice_number = obj.invoice_number
 				if eobj:
-					total_annual_fee += int(float(eobj[0].total_sales))
-					order_no = eobj[0].order_number
-					order_line_number = eobj[0].order_line_number
-					invoice_number = eobj[0].invoice_number	
+					for obj in eobj:
+						total_annual_fee += int(float(obj.total_sales))
+						order_no = obj.order_number
+						order_line_number = obj.order_line_number
+						invoice_number = obj.invoice_number	
 				if total_annual_fee>0:
 					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee,invoice_number,order_no,order_line_number])
 			if len(master_annual_data)>1:
@@ -635,7 +642,7 @@ def customer_overview(request,pk):
 			for obj in billing_obj:
 				if 'SYSTEM SETUP' in obj.item_description:
 					try:
-						setup_data.append([from_excel_ordinal(int(float(obj.date_invoiced))),obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
+						setup_data.append([obj.date_invoiced,obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 					except:
 						setup_data.append(['',obj.total_sales,obj.invoice_number,obj.order_number,obj.order_line_number])
 			# SENSUS CUSTOM DEVELOP SERVICES
