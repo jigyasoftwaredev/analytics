@@ -352,11 +352,6 @@ def show_invoice_next_month(request):
 			# import pdb;pdb.set_trace()
 			if len(dates) > 1:
 				sorted_date = sorted(dates)
-				# higher_date = dates[0]
-				# new_date = dates[0]
-				# for ldate in dates:
-				# 	if ldate>= higher_date:
-				# 		new_date = ldate
 				startDate = sorted_date[-1]
 				endDate = date(startDate.year + 1, startDate.month, startDate.day)
 				# replace year only
@@ -367,6 +362,7 @@ def show_invoice_next_month(request):
 				else:
 					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
 				if one_month_date.month == endDate.month and one_month_date.year==endDate.year:
+				# if one_month_date > endDate:
 					# import pdb;pdb.set_trace()
 					show_invoice_list.append(customer)
 			else:
@@ -380,6 +376,7 @@ def show_invoice_next_month(request):
 				else:
 					one_month_date = date(today_date.year, today_date.month + 1, today_date.day)
 				if one_month_date.month == endDate.month and one_month_date.year == endDate.year:
+				# if one_month_date > endDate:
 					# import pdb;pdb.set_trace()
 					show_invoice_list.append(customer)
 		# try:
@@ -492,7 +489,7 @@ def customer_overview(request,pk):
 					actual_gas_count = int(mdata.active_meters_count)
 		gas_data.append(int(float(given_gas_points)))
 		gas_data.append(actual_gas_count)
-		water_data.append(int(float(given_water_points)))
+		water_data.append(int(float(given_water_points.replace('<',''))))
 		water_data.append(actual_water_count)
 		electric_data.append(int(float(given_electric_points)))
 		electric_data.append(actual_electric_count)
@@ -572,9 +569,10 @@ def customer_overview(request,pk):
 						order_line_number = obj.order_line_number
 						invoice_number = obj.invoice_number	
 				if total_annual_fee>0:
-					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee,invoice_number,order_no,order_line_number])
-			if len(master_annual_data)>1:
-				master_annual_data = sorted(master_annual_data,key=itemgetter(0),reverse=True)		
+					master_annual_data.append([from_excel_ordinal(int(float(inobj))),total_annual_fee,invoice_number,order_no,int(order_line_number)])
+			# if len(master_annual_data)>1:
+				# import pdb;pdb.set_trace()
+				# master_annual_data = sorted(master_annual_data,key=itemgetter(3),reverse=True)		
 			for cobj in get_unique_date_committed:
 				total_annual_fee = 0 
 				wobj = water_objs.filter(date_committed=cobj)
@@ -589,7 +587,7 @@ def customer_overview(request,pk):
 						order_line_number = wwo.order_line_number
 						invoice_number = wwo.invoice_number
 						if total_annual_fee>0:
-							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,int(order_line_number)])
 			
 				if gobj:
 					for ggo in gobj:
@@ -598,7 +596,7 @@ def customer_overview(request,pk):
 						order_line_number = ggo.order_line_number
 						invoice_number = ggo.invoice_number
 						if total_annual_fee>0:
-							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,int(order_line_number)])
 			
 				if eobj:
 					for eeo in eobj:
@@ -607,9 +605,12 @@ def customer_overview(request,pk):
 						order_line_number = eeo.order_line_number
 						invoice_number = eeo.invoice_number
 						if total_annual_fee>0:
-							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+							master_annual_data.append(['',total_annual_fee,invoice_number,order_no,int(order_line_number)])
 				# if total_annual_fee>0:
 					# master_annual_data.append(['',total_annual_fee,invoice_number,order_no,order_line_number])
+			if len(master_annual_data)>1:
+				# import pdb;pdb.set_trace()
+				master_annual_data = sorted(master_annual_data,key=itemgetter(4),reverse=False)
 			# msg_data = ''
 			# setup_data = ''
 			# addon_data = ''
