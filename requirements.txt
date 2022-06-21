@@ -16,7 +16,7 @@ jsonschema==3.0.1
 jupyter-core==4.4.0
 kombu==4.5.0
 nbformat==4.4.0
-numpy==1.16.4
+numpy==1.22.0
 pretty==0.1
 prettytable==0.7.2
 psycopg2==2.7.7
